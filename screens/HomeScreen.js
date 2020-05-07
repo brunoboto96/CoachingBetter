@@ -4,6 +4,7 @@ import { Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react
 import { ScrollView } from 'react-native-gesture-handler';
 
 import { MonoText } from '../components/StyledText';
+import { Button } from 'native-base';
 
 export default function HomeScreen() {
   return (
@@ -19,11 +20,14 @@ export default function HomeScreen() {
             style={styles.welcomeImage}
           />
         </View>
+        <Button>
+          <Text>TryME!</Text>
+        </Button>
 
         <View style={styles.getStartedContainer}>
           <DevelopmentModeNotice />
 
-          <Text style={styles.getStartedText}>Open up the code for this screen:</Text>
+          <Text style={styles.getStartedText}>caralhoooOpen up the code for this screen:</Text>
 
           <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
             <MonoText>screens/HomeScreen.js</MonoText>
@@ -45,7 +49,7 @@ export default function HomeScreen() {
         <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
 
         <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-          <MonoText style={styles.codeHighlightText}>navigation/BottomTabNavigator.js</MonoText>
+          <MonoText style={styles.codeHighlightText}>navigation/DrawerNavigator.js</MonoText>
         </View>
       </View>
     </View>
