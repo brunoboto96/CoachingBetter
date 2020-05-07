@@ -1322,6 +1322,13 @@
     color "^3.1.2"
     react-native-iphone-x-helper "^1.2.1"
 
+"@react-navigation/material-top-tabs@^5.1.15":
+  version "5.1.15"
+  resolved "https://registry.yarnpkg.com/@react-navigation/material-top-tabs/-/material-top-tabs-5.1.15.tgz#bf7bb379840036983b6ecf70266cb1b755a8671f"
+  integrity sha512-x/xF7qFJG9GYYJ92nttsIpj1fs2JisYsSLAJDo7DI19/NNHDPGoEZMlctW+nMuGzOVx0ZNu3HHnY00dztMrx/A==
+  dependencies:
+    color "^3.1.2"
+
 "@react-navigation/native@^5.0.0":
   version "5.2.4"
   resolved "https://registry.yarnpkg.com/@react-navigation/native/-/native-5.2.4.tgz#e175a50541e8157a595e265209215f02ad5bd181"
@@ -5803,6 +5810,11 @@ react-native-screens@~2.2.0:
   integrity sha512-a0VzxOWot7F9B/GQyDSssBRd3jUJazFnTQS61IiyReWB6aHlFhf3Xz10jBRoURXy1EMCDCHgenmTVTkKHpKyqQ==
   dependencies:
     debounce "^1.2.0"
+
+react-native-tab-view@^2.14.0:
+  version "2.14.0"
+  resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-2.14.0.tgz#dd801f82fdb8e92fce9688b78d13923f3a5a2b3f"
+  integrity sha512-Z7XAM3NsMB96c17e9EAveunk7SUgilXWwVUTmWI1u/+p2SeOMUOB87z+//UXrcVlD1e9BPweR73q7dq7krTzTg==
 
 react-native-vector-icons@^6.6.0:
   version "6.6.0"
