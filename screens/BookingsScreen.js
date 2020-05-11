@@ -6,7 +6,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import * as Font from 'expo-font';
 import { MonoText } from '../components/StyledText';
-import { Button, Container, Content, Row, Grid, Col, Card, CardItem, Body, H2, Right, Tab, Picker, Form } from 'native-base';
+import { Button, Container, Content, Row, Grid, Col, Card, CardItem, Body, H2, Right, Tab, Picker, Form, Item, Header, Input, H3 } from 'native-base';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import LinksScreen from './LinksScreen';
@@ -21,13 +21,10 @@ export default class HomeScreen extends React.Component {
             <CardItem>
               <Body>
                 <Row>
-                  <FontAwesome5 name="plus-circle" size={30} color="orange" />
-                  <H2 style={{ marginLeft: 50 }}> New Program</H2>
+                  <FontAwesome5 name="book-open" size={30} color="orange" />
+                  <H2 style={{ marginLeft: 50 }}> Bookings</H2>
                 </Row>
-                <Text>By creating a new Program it allows you to ..</Text>
-                <Button success block style={styles.contentContainer} >
-                  <Text style={styles.center} >Create Program</Text>
-                </Button>
+                <Text>You can check your bookings here</Text>
               </Body>
             </CardItem>
           </Card>
@@ -36,27 +33,22 @@ export default class HomeScreen extends React.Component {
           <Card>
             <CardItem>
               <Body>
-                <Row>
-                  <FontAwesome5 name="archive" size={30} color="orange" />
-                  <H2 style={{ marginLeft: 50 }}> Your Programs</H2>
+                <Row style={{ marginBottom: 30  }}>
+                  <FontAwesome5 name="users" size={30} color="orange" />
+                  <H2 style={{ marginLeft: 50 }}> Your Bookings</H2>
                 </Row>
-                <CardItem>
-                  <FontAwesome5 active name="google-plus" size={50} />
-                  <Text> Google Plus</Text>
-                  <Right>
-                    {/* FIX W add style sheet seperate file */}
-                    <FontAwesome5 name="edit" />
-                  </Right>
-                </CardItem>
+                <ScrollView>
+                  <CardItem bordered>
+                    <FontAwesome5 active name="user-ninja" />
+                    <Text>John Doe</Text>
+                    <H3>09/05/2020</H3>
+                    <Button success style={{marginHorizontal: 10, padding: 5}}><Text>Approve</Text></Button>
+                    <Button danger style={{padding:5}}><Text>Reject</Text></Button>
+                  </CardItem>
+                </ScrollView>
               </Body>
             </CardItem>
           </Card>
-          <Button onPress={
-            () => this.props.navigation.navigate('Home')
-          }>
-            <Text>Links Screen</Text>
-          </Button>
-          
 
 
         </ScrollView>

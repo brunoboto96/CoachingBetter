@@ -24,7 +24,7 @@ export default class HomeScreen extends React.Component {
                   <FontAwesome5 name="plus-circle" size={30} color="orange" />
                   <H2 style={{ marginLeft: 50 }}> New Program</H2>
                 </Row>
-                <Text>By creating a new Program it allows you to ..</Text>
+                <Text>By creating a new Program it allows you to  ..</Text>
                 <Button success block style={styles.contentContainer} >
                   <Text style={styles.center} >Create Program</Text>
                 </Button>

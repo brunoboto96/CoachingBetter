@@ -52,11 +52,23 @@ export default function App(props) {
         <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
           <Stack.Navigator>
             <Stack.Screen name="Root" component={MaterialTopTabNavigator} />
+            <Stack.Screen name="Home" component={Home} />
           </Stack.Navigator>
         </NavigationContainer>
       </View>
     );
   }
+}
+
+function Home() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name='TestScreen'
+        component={TestScreen}
+      />
+    </Stack.Navigator>
+  );
 }
 
 const styles = StyleSheet.create({

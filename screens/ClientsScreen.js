@@ -6,7 +6,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import * as Font from 'expo-font';
 import { MonoText } from '../components/StyledText';
-import { Button, Container, Content, Row, Grid, Col, Card, CardItem, Body, H2, Right, Tab, Picker, Form } from 'native-base';
+import { Button, Container, Content, Row, Grid, Col, Card, CardItem, Body, H2, Right, Tab, Picker, Form, Item, Header, Input } from 'native-base';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import LinksScreen from './LinksScreen';
@@ -22,11 +22,14 @@ export default class HomeScreen extends React.Component {
               <Body>
                 <Row>
                   <FontAwesome5 name="plus-circle" size={30} color="orange" />
-                  <H2 style={{ marginLeft: 50 }}> New Program</H2>
+                  <H2 style={{ marginLeft: 50 }}> New Client</H2>
                 </Row>
-                <Text>By creating a new Program it allows you to ..</Text>
+                <Text>You can add a new Client here or share your code</Text>
                 <Button success block style={styles.contentContainer} >
-                  <Text style={styles.center} >Create Program</Text>
+                  <Text style={styles.center} >Add Client</Text>
+                </Button>
+                <Button info block style={styles.contentContainer} >
+                  <Text style={styles.center} >Share Code</Text>
                 </Button>
               </Body>
             </CardItem>
@@ -37,26 +40,70 @@ export default class HomeScreen extends React.Component {
             <CardItem>
               <Body>
                 <Row>
-                  <FontAwesome5 name="archive" size={30} color="orange" />
-                  <H2 style={{ marginLeft: 50 }}> Your Programs</H2>
+                  <FontAwesome5 name="users" size={30} color="orange" />
+                  <H2 style={{ marginLeft: 50 }}> Your Clients</H2>
                 </Row>
-                <CardItem>
-                  <FontAwesome5 active name="google-plus" size={50} />
-                  <Text> Google Plus</Text>
-                  <Right>
-                    {/* FIX W add style sheet seperate file */}
-                    <FontAwesome5 name="edit" />
-                  </Right>
-                </CardItem>
+                <View searchBar rounded style={{ flex: 1, flexDirection: 'column', alignSelf: 'stretch' }}>
+                  <Item>
+                    <FontAwesome5 name="users" />
+                    <Input placeholder="Search" />
+                    <Button bordered style={{ padding: 5 }}>
+                      <FontAwesome5 name="search" />
+                    </Button>
+                  </Item>
+                </View>
+                <ScrollView>
+                  <CardItem>
+                    <FontAwesome5 active name="user-ninja" />
+                    <Text>John Doe</Text>
+                    <Right >
+                      <FontAwesome5 name="chevron-circle-right" />
+                    </Right>
+                  </CardItem>
+                  <CardItem>
+                    <FontAwesome5 active name="user-ninja" />
+                    <Text>John Doe</Text>
+                    <Right >
+                      <FontAwesome5 name="chevron-circle-right" />
+                    </Right>
+                  </CardItem>
+                  {/* Use FlatList maybe */}
+                </ScrollView>
               </Body>
             </CardItem>
           </Card>
-          <Button onPress={
-            () => this.props.navigation.navigate('Home')
-          }>
-            <Text>Links Screen</Text>
-          </Button>
-          
+          <Card>
+            <CardItem>
+              <Body>
+                <Row>
+                  <FontAwesome5 name="users" size={30} color="orange" />
+                  <H2 style={{ marginLeft: 50 }}> Old Clients</H2>
+                </Row>
+                <View searchBar rounded style={{ flex: 1, flexDirection: 'column', alignSelf: 'stretch' }}>
+                  <Item>
+                    <FontAwesome5 name="users" />
+                    <Input placeholder="Search" />
+                    <Button bordered style={{ padding: 5 }}>
+                      <FontAwesome5 name="search" />
+                    </Button>
+                  </Item>
+                </View>
+                <ScrollView>
+                  <CardItem>
+                    <FontAwesome5 active name="user-ninja" />
+                    <Text>John Doe</Text>
+                    <Right >
+                      <FontAwesome5 name="chevron-circle-right" />
+                    </Right>
+                  </CardItem>
+                  {/* Use FlatList maybe */}
+                </ScrollView>
+              </Body>
+            </CardItem>
+          </Card>
+
+
+
 
 
         </ScrollView>

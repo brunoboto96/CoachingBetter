@@ -6,7 +6,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import * as Font from 'expo-font';
 import { MonoText } from '../components/StyledText';
-import { Button, Container, Content, Row, Grid, Col, Card, CardItem, Body, H2, Right, Tab, Picker, Form } from 'native-base';
+import { Button, Container, Content, Row, Grid, Col, Card, CardItem, Body, H2, Right, Tab, Picker, Form, Item, Header, Input, H3 } from 'native-base';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import LinksScreen from './LinksScreen';
@@ -19,46 +19,16 @@ export default class HomeScreen extends React.Component {
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainerMain}>
           <Card>
             <CardItem>
-              <Body>
-                <Row>
-                  <FontAwesome5 name="plus-circle" size={30} color="orange" />
-                  <H2 style={{ marginLeft: 50 }}> New Program</H2>
-                </Row>
-                <Text>By creating a new Program it allows you to ..</Text>
-                <Button success block style={styles.contentContainer} >
-                  <Text style={styles.center} >Create Program</Text>
-                </Button>
-              </Body>
+              <View style={{ flex: 1 }}>
+                <Button transparent style={{padding: 10, paddingTop: 50}} ><FontAwesome5 name="tools" size={100} color="black" /></Button>
+                <Text style={{marginTop: 50}}> Plan</Text>
+              </View>
+              <View style={{ flex: 1 }}>
+                <Button transparent style={{padding: 10, paddingTop: 50}} ><FontAwesome5 name="clock" size={100} color="black" /></Button>
+                <Text style={{marginTop: 50}}> Scheduled Session</Text>
+              </View>
             </CardItem>
           </Card>
-
-
-          <Card>
-            <CardItem>
-              <Body>
-                <Row>
-                  <FontAwesome5 name="archive" size={30} color="orange" />
-                  <H2 style={{ marginLeft: 50 }}> Your Programs</H2>
-                </Row>
-                <CardItem>
-                  <FontAwesome5 active name="google-plus" size={50} />
-                  <Text> Google Plus</Text>
-                  <Right>
-                    {/* FIX W add style sheet seperate file */}
-                    <FontAwesome5 name="edit" />
-                  </Right>
-                </CardItem>
-              </Body>
-            </CardItem>
-          </Card>
-          <Button onPress={
-            () => this.props.navigation.navigate('Home')
-          }>
-            <Text>Links Screen</Text>
-          </Button>
-          
-
-
         </ScrollView>
       </View>
 
