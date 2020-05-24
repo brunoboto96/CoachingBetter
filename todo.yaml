@@ -1,0 +1,50 @@
+TODO:
+
+###BUGS:###
+  this.props.navigation.goBack()
+###########
+
+program:
+dynamic autocomplete from program_types
+
+Login():
+account_type check
+
+refresh:
+refresh after action
+
+planner:
+explanation
+exercise
+media?
+DINAMIC DUPLICATE COMPONENTS + GRAB PAREMETERS BY ORDER OF KEY
+
+booking:
+fake chat
+notification
+
+auth:
+move inside home
+
+sessionplanner:
+design center buttons
+
+navigate:
+  just one variable not every function
+
+###
+:backend:
+####
+
+db:
+
+routes:
+
+controllers:
+
+
+
+
+
+
+

@@ -14,18 +14,20 @@ import LinksScreen from './LinksScreen';
 export default class HomeScreen extends React.Component {
 
   render() {
+
+    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainerMain}>
           <Card>
             <CardItem>
               <View style={{ flex: 1 }}>
-                <Button transparent style={{padding: 10, paddingTop: 50}} ><FontAwesome5 name="tools" size={100} color="black" /></Button>
-                <Text style={{marginTop: 50}}> Plan</Text>
+                <Button transparent style={{ padding: 10, paddingTop: 50 }} onPress={() => navigate("Planner")}><FontAwesome5 name="tools" size={100} color="black" /></Button>
+                <Text style={{ marginTop: 50 }}> Plan</Text>
               </View>
               <View style={{ flex: 1 }}>
-                <Button transparent style={{padding: 10, paddingTop: 50}} ><FontAwesome5 name="clock" size={100} color="black" /></Button>
-                <Text style={{marginTop: 50}}> Scheduled Session</Text>
+                <Button transparent style={{ padding: 10, paddingTop: 50 }} onPress={() => navigate("Scheduled")}><FontAwesome5 name="clock" size={100} color="black" /></Button>
+                <Text style={{ marginTop: 50 }}> Scheduled Session</Text>
               </View>
             </CardItem>
           </Card>

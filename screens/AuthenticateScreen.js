@@ -5,8 +5,6 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import { Button, Row, Card, CardItem, Body, H2, Right } from 'native-base';
-import user from '../components/user.service';
-import program from '../components/program.service';
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -16,51 +14,8 @@ export default class HomeScreen extends React.Component {
       data: [],
       isLoading: true
     };
-
-
-
   }
 
-  componentDidMount() {
-
-    user.isLoggedIn().then((userPayload) => {
-      this.setState({ userid: user.selectedUser._id })
-      if (!userPayload) {
-        //navigate authScreen
-        navigate('Auth')
-      } else {
-        program.getPrograms(user.selectedUser._id).then((data) => {
-          console.log("programdata: ", program.programs.data)
-          this.setState({ data: program.programs.data });
-        })
-      }
-    }).finally(() => {
-      this.setState({ isLoading: false });
-    })
-
-    /*
-    if (Platform.OS == 'android') {
-      fetch('http://192.168.144.171:3000/api/program/get')
-        .then((response) => response.json())
-        .then((json) => {
-          this.setState({ data: json.programs });
-        })
-        .catch((error) => console.error(error))
-        .finally(() => {
-          this.setState({ isLoading: false });
-        });
-    } else {
-      fetch('http://127.0.0.1:3000/api/program/get')
-        .then((response) => response.json())
-        .then((json) => {
-          this.setState({ data: json.programs });
-        })
-        .catch((error) => console.error(error))
-        .finally(() => {
-          this.setState({ isLoading: false });
-        });
-    }*/
-  }
 
   render() {
     const { data, isLoading } = this.state;
@@ -69,58 +24,28 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainerMain}>
-
           <Card>
             <CardItem>
               <Body>
                 <Row>
-                  <FontAwesome5 name="plus-circle" size={30} color="orange" />
-                  <H2 style={{ marginLeft: 50 }}> New Program</H2>
+                  <FontAwesome5 name="key" size={30} color="orange" />
+                  <H2 style={{ marginLeft: 50 }}> Welcome</H2>
                 </Row>
-                <Text>By creating a new Program it allows you to  ..</Text>
-                <Button success block style={styles.contentContainer} onPress={() => navigate('NewProgram')} >
-                  <Text style={styles.center} >Create Program</Text>
+                <Button success block style={styles.contentContainer} onPress={() => navigate('Login')} >
+                  <Text style={styles.center} >Login</Text>
+                </Button>
+                <Button info block style={styles.contentContainer} onPress={() => navigate('Register')} >
+                  <Text style={styles.center} >Register</Text>
                 </Button>
               </Body>
             </CardItem>
           </Card>
-
-
-          <Card>
-            <CardItem>
-              <Body>
-                <Row>
-                  <FontAwesome5 name="archive" size={30} color="orange" />
-                  <H2 style={{ marginLeft: 50 }}> Your Programs</H2>
-                </Row>
-
-                <CardItem style={{ width: '100%' }}>
-                  {isLoading ? <ActivityIndicator /> : (
-                    <FlatList
-                      data={data}
-                      keyExtractor={({ id }, index) => id}
-                      renderItem={({ item }) => (
-                        <CardItem>
-                          <FontAwesome5 active name="users" size={50} />
-                          <Text> {item.title}</Text>
-                          <Right>
-                            <Text>{item.description} </Text>
-                          </Right>
-                          <FontAwesome5 name="edit" size={30} />
-                        </CardItem>
-                      )}
-                    />
-                  )}
-                </CardItem>
-              </Body>
-            </CardItem>
-          </Card>
-
         </ScrollView>
       </View>
     );
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {

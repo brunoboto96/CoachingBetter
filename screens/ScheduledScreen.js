@@ -5,8 +5,6 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import { Button, Row, Card, CardItem, Body, H2, Right } from 'native-base';
-import user from '../components/user.service';
-import program from '../components/program.service';
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -15,52 +13,12 @@ export default class HomeScreen extends React.Component {
     this.state = {
       data: [],
       isLoading: true
-    };
-
+    }
 
 
   }
 
-  componentDidMount() {
-
-    user.isLoggedIn().then((userPayload) => {
-      this.setState({ userid: user.selectedUser._id })
-      if (!userPayload) {
-        //navigate authScreen
-        navigate('Auth')
-      } else {
-        program.getPrograms(user.selectedUser._id).then((data) => {
-          console.log("programdata: ", program.programs.data)
-          this.setState({ data: program.programs.data });
-        })
-      }
-    }).finally(() => {
-      this.setState({ isLoading: false });
-    })
-
-    /*
-    if (Platform.OS == 'android') {
-      fetch('http://192.168.144.171:3000/api/program/get')
-        .then((response) => response.json())
-        .then((json) => {
-          this.setState({ data: json.programs });
-        })
-        .catch((error) => console.error(error))
-        .finally(() => {
-          this.setState({ isLoading: false });
-        });
-    } else {
-      fetch('http://127.0.0.1:3000/api/program/get')
-        .then((response) => response.json())
-        .then((json) => {
-          this.setState({ data: json.programs });
-        })
-        .catch((error) => console.error(error))
-        .finally(() => {
-          this.setState({ isLoading: false });
-        });
-    }*/
-  }
+  
 
   render() {
     const { data, isLoading } = this.state;
@@ -74,10 +32,9 @@ export default class HomeScreen extends React.Component {
             <CardItem>
               <Body>
                 <Row>
-                  <FontAwesome5 name="plus-circle" size={30} color="orange" />
-                  <H2 style={{ marginLeft: 50 }}> New Program</H2>
+                  <FontAwesome5 name="cubes" size={30} color="orange" />
+                  <H2 style={{ marginLeft: 50 }}> Planner</H2>
                 </Row>
-                <Text>By creating a new Program it allows you to  ..</Text>
                 <Button success block style={styles.contentContainer} onPress={() => navigate('NewProgram')} >
                   <Text style={styles.center} >Create Program</Text>
                 </Button>
@@ -93,8 +50,17 @@ export default class HomeScreen extends React.Component {
                   <FontAwesome5 name="archive" size={30} color="orange" />
                   <H2 style={{ marginLeft: 50 }}> Your Programs</H2>
                 </Row>
+                <CardItem>
+                  <FontAwesome5 active name="google-plus" size={50} />
+                  <Text> Google Plus</Text>
+                  <Right>
+                    {/* FIX W add style sheet seperate file */}
+                    <FontAwesome5 name="edit" />
+                  </Right>
+                </CardItem>
 
-                <CardItem style={{ width: '100%' }}>
+
+                <View style={{ flex: 1, padding: 24 }}>
                   {isLoading ? <ActivityIndicator /> : (
                     <FlatList
                       data={data}
@@ -102,16 +68,17 @@ export default class HomeScreen extends React.Component {
                       renderItem={({ item }) => (
                         <CardItem>
                           <FontAwesome5 active name="users" size={50} />
-                          <Text> {item.title}</Text>
+                          <Text>{item.title}</Text>
                           <Right>
-                            <Text>{item.description} </Text>
+                            {/* FIX W add style sheet separate file */}
+                            <FontAwesome5 name="edit" />
                           </Right>
-                          <FontAwesome5 name="edit" size={30} />
+                          <Text>{item.description}</Text>
                         </CardItem>
                       )}
                     />
                   )}
-                </CardItem>
+                </View>
               </Body>
             </CardItem>
           </Card>
@@ -120,6 +87,43 @@ export default class HomeScreen extends React.Component {
       </View>
     );
   }
+}
+
+HomeScreen.navigationOptions = {
+  header: null,
+};
+
+function DevelopmentModeNotice() {
+  if (__DEV__) {
+    const learnMoreButton = (
+      <Text onPress={handleLearnMorePress} style={styles.helpLinkText}>
+        Learn more
+      </Text>
+    );
+
+    return (
+      <Text style={styles.developmentModeText}>
+        Development mode is enabled: your app will be slower but you can use useful development
+        tools. {learnMoreButton}
+      </Text>
+    );
+  } else {
+    return (
+      <Text style={styles.developmentModeText}>
+        You are not in development mode: your app will run at full speed.
+      </Text>
+    );
+  }
+}
+
+function handleLearnMorePress() {
+  WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/workflow/development-mode/');
+}
+
+function handleHelpPress() {
+  WebBrowser.openBrowserAsync(
+    'https://docs.expo.io/versions/latest/get-started/create-a-new-app/#making-your-first-change'
+  );
 }
 
 const styles = StyleSheet.create({

@@ -10,8 +10,39 @@ import { Button, Container, Content, Row, Grid, Col, Card, CardItem, Body, H2, R
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import LinksScreen from './LinksScreen';
+import user from '../components/user.service';
 
 export default class HomeScreen extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+
+    this.state = {
+      selectedUser: {
+        username: 'user'
+      },
+      data: [],
+      isLoading: true
+    }
+    user.isLoggedIn().then((userPayload) => {
+      console.log("Loged in: ", userPayload)
+      this.setState({ username: user.selectedUser.username })
+      if (!userPayload) {
+        //navigate authScreen
+        navigate('Auth')
+      }
+      /*
+      if (userPayload) {
+        //navigate home
+        navigate("Home")
+      }*/
+    })
+  }
+
+  shareCode() {
+    
+  }
 
   render() {
     return (
@@ -28,7 +59,7 @@ export default class HomeScreen extends React.Component {
                 <Button success block style={styles.contentContainer} >
                   <Text style={styles.center} >Add Client</Text>
                 </Button>
-                <Button info block style={styles.contentContainer} >
+                <Button info block style={styles.contentContainer} onPress={this.shareCode()}>
                   <Text style={styles.center} >Share Code</Text>
                 </Button>
               </Body>

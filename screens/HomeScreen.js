@@ -10,54 +10,54 @@ import { Button, Container, Content, Row, Grid, Col, Card, CardItem, Body, H2, R
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import LinksScreen from './LinksScreen';
+import user from '../components/user.service';
 
 export default class HomeScreen extends React.Component {
 
+
+  constructor(props) {
+    super(props);
+
+    const { navigate } = this.props.navigation;
+
+    this.state = {
+      selectedUser: {
+        username: 'user'
+      },
+      data: [],
+      isLoading: true
+    }
+    user.isLoggedIn().then((userPayload) => {
+      console.log("Loged in: ", userPayload)
+      this.setState({ username: user.selectedUser.username })
+      if (!userPayload) {
+        //navigate authScreen
+        navigate('Auth')
+      }
+      /*
+            if (userPayload) {
+              //navigate home
+              navigate("Home")
+            }*/
+    })
+  }
+
+  Logout = () => {
+    console.log("logout")
+    const { navigate } = this.props.navigation;
+    user.logout()
+    navigate("Auth")
+  }
+
   render() {
+
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainerMain}>
-          <Card>
-            <CardItem>
-              <Body>
-                <Row>
-                  <FontAwesome5 name="plus-circle" size={30} color="orange" />
-                  <H2 style={{ marginLeft: 50 }}> New Program</H2>
-                </Row>
-                <Text>By creating a new Program it allows you to ..</Text>
-                <Button success block style={styles.contentContainer} >
-                  <Text style={styles.center} >Create Program</Text>
-                </Button>
-              </Body>
-            </CardItem>
-          </Card>
 
-
-          <Card>
-            <CardItem>
-              <Body>
-                <Row>
-                  <FontAwesome5 name="archive" size={30} color="orange" />
-                  <H2 style={{ marginLeft: 50 }}> Your Programs</H2>
-                </Row>
-                <CardItem>
-                  <FontAwesome5 active name="google-plus" size={50} />
-                  <Text> Google Plus</Text>
-                  <Right>
-                    {/* FIX W add style sheet seperate file */}
-                    <FontAwesome5 name="edit" />
-                  </Right>
-                </CardItem>
-              </Body>
-            </CardItem>
-          </Card>
-          <Button onPress={
-            () => this.props.navigation.navigate('Home')
-          }>
-            <Text>Links Screen</Text>
-          </Button>
-          
-
+          <Text> {user.selectedUser.username}</Text>
+          <Text> {user.selectedUser.email}</Text>
+          <Button danger onPress={() => this.Logout()}><Text>Logout</Text></Button>
 
         </ScrollView>
       </View>

@@ -1,12 +1,10 @@
 import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
-import { Platform, StyleSheet, Text, View, ActivityIndicator, FlatList, Alert, Modal, TouchableHighlight } from 'react-native';
+import { Platform, StyleSheet, Text, View, ActivityIndicator, FlatList, Alert, Modal, TouchableHighlight, TextInput } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { ScrollView } from 'react-native-gesture-handler';
-
+import { Picker } from '@react-native-community/picker';
 import { Button, Row, Card, CardItem, Body, H2, Right } from 'native-base';
-import user from '../components/user.service';
-import program from '../components/program.service';
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -14,58 +12,25 @@ export default class HomeScreen extends React.Component {
 
     this.state = {
       data: [],
-      isLoading: true
-    };
-
+      isLoading: true,
+      program: 'Body Workout',
+      session_number: 1
+    }
 
 
   }
 
-  componentDidMount() {
-
-    user.isLoggedIn().then((userPayload) => {
-      this.setState({ userid: user.selectedUser._id })
-      if (!userPayload) {
-        //navigate authScreen
-        navigate('Auth')
-      } else {
-        program.getPrograms(user.selectedUser._id).then((data) => {
-          console.log("programdata: ", program.programs.data)
-          this.setState({ data: program.programs.data });
-        })
-      }
-    }).finally(() => {
-      this.setState({ isLoading: false });
-    })
-
-    /*
-    if (Platform.OS == 'android') {
-      fetch('http://192.168.144.171:3000/api/program/get')
-        .then((response) => response.json())
-        .then((json) => {
-          this.setState({ data: json.programs });
-        })
-        .catch((error) => console.error(error))
-        .finally(() => {
-          this.setState({ isLoading: false });
-        });
-    } else {
-      fetch('http://127.0.0.1:3000/api/program/get')
-        .then((response) => response.json())
-        .then((json) => {
-          this.setState({ data: json.programs });
-        })
-        .catch((error) => console.error(error))
-        .finally(() => {
-          this.setState({ isLoading: false });
-        });
-    }*/
-  }
 
   render() {
+
     const { data, isLoading } = this.state;
     const { navigate } = this.props.navigation;
 
+
+    let sets = [];
+    for (let i = 0; i < this.state.addSetsCounter; i++) {
+      sets.push(<AddSet key="AddSet-{i}" />);
+    }
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainerMain}>
@@ -74,10 +39,49 @@ export default class HomeScreen extends React.Component {
             <CardItem>
               <Body>
                 <Row>
-                  <FontAwesome5 name="plus-circle" size={30} color="orange" />
-                  <H2 style={{ marginLeft: 50 }}> New Program</H2>
+                  <FontAwesome5 name="archive" size={30} color="orange" />
+                  <H2 style={{ marginLeft: 50 }}> Program</H2>
                 </Row>
-                <Text>By creating a new Program it allows you to  ..</Text>
+
+                <Picker
+                  selectedValue={this.state.program}
+                  style={{ height: 50, width: 100 }}
+                  onValueChange={(itemValue, itemIndex) =>
+                    this.setState({ program: itemValue })
+                  }>
+                  <Picker.Item label="Body Workout" value="Body Workout" />
+                  <Picker.Item label="JavaScript" value="js" />
+                </Picker>
+              </Body>
+            </CardItem>
+          </Card>
+
+          <Card>
+            <CardItem>
+              <Body>
+                <Row>
+                  <FontAwesome5 name="cubes" size={30} color="orange" />
+                  <H2 style={{ marginLeft: 50 }}> Session {this.state.session_number}</H2>
+                </Row>
+                <CardItem>
+                  <Text>Title </Text>
+                  <TextInput
+                    style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                    onChangeText={session_title => this.setState({ session_title })}
+                    value={this.state.session_title} placeholder="Leg Workout"
+                  />
+                </CardItem>
+                <AddSet />
+                <View>
+                  <Button success block style={styles.contentContainer}
+                    onPress={() => {
+                      this.setState({ addSetsCounter: this.state.addSetsCounter });
+                      console.log(this.state.addSetsCounter)
+                      //console.log(this.state.session_title)
+                    }}
+                    title={"add more"}
+                  ><Text>Add More</Text></Button>
+                </View>
                 <Button success block style={styles.contentContainer} onPress={() => navigate('NewProgram')} >
                   <Text style={styles.center} >Create Program</Text>
                 </Button>
@@ -93,8 +97,17 @@ export default class HomeScreen extends React.Component {
                   <FontAwesome5 name="archive" size={30} color="orange" />
                   <H2 style={{ marginLeft: 50 }}> Your Programs</H2>
                 </Row>
+                <CardItem>
+                  <FontAwesome5 active name="google-plus" size={50} />
+                  <Text> Google Plus</Text>
+                  <Right>
+                    {/* FIX W add style sheet seperate file */}
+                    <FontAwesome5 name="edit" />
+                  </Right>
+                </CardItem>
 
-                <CardItem style={{ width: '100%' }}>
+
+                <View style={{ flex: 1, padding: 24 }}>
                   {isLoading ? <ActivityIndicator /> : (
                     <FlatList
                       data={data}
@@ -102,16 +115,17 @@ export default class HomeScreen extends React.Component {
                       renderItem={({ item }) => (
                         <CardItem>
                           <FontAwesome5 active name="users" size={50} />
-                          <Text> {item.title}</Text>
+                          <Text>{item.title}</Text>
                           <Right>
-                            <Text>{item.description} </Text>
+                            {/* FIX W add style sheet separate file */}
+                            <FontAwesome5 name="edit" />
                           </Right>
-                          <FontAwesome5 name="edit" size={30} />
+                          <Text>{item.description}</Text>
                         </CardItem>
                       )}
                     />
                   )}
-                </CardItem>
+                </View>
               </Body>
             </CardItem>
           </Card>
@@ -120,6 +134,12 @@ export default class HomeScreen extends React.Component {
       </View>
     );
   }
+}
+
+const AddSet = () => {
+  return (
+    <Text>Hello</Text>
+  );
 }
 
 const styles = StyleSheet.create({
