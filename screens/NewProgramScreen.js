@@ -1,14 +1,13 @@
-import * as WebBrowser from 'expo-web-browser';
-import * as React from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { ScrollView } from 'react-native-gesture-handler';
-import { Input, Button } from 'react-native-elements';
-
-import { Row, Card, CardItem, Body, H2, Right } from 'native-base';
 import { Formik } from 'formik';
+import { Body, Card, CardItem, H2, Row } from 'native-base';
+import * as React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { Button, Input } from 'react-native-elements';
+import { ScrollView } from 'react-native-gesture-handler';
 import program from '../components/program.service';
 import user from '../components/user.service';
+
 
 
 export default class HomeScreen extends React.Component {

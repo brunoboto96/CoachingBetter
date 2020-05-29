@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-community/async-storage';
 import { Platform } from 'react-native';
 import url from '../components/url';
 
@@ -63,7 +62,7 @@ class ProgramService {
               })
       }
   */
-    newProgram = async (title, description, type, price, owner_fk) => {
+    newProgram = async(title, description, type, price, owner_fk) => {
         console.log("Create Program")
         if (Platform.OS == 'android') {
             this.backendUrl = url.getbackendURL_mobile()
@@ -71,19 +70,19 @@ class ProgramService {
             this.backendUrl = url.getbackendURL()
         }
         await fetch(this.backendUrl + '/api/program/new', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                title: title,
-                description: description,
-                type: type,
-                price: price,
-                ownerId: owner_fk
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title: title,
+                    description: description,
+                    type: type,
+                    price: price,
+                    ownerId: owner_fk
+                })
             })
-        })
             .then((response) => response.json())
             .then((json) => {
                 console.log(json)
@@ -96,7 +95,7 @@ class ProgramService {
     }
 
 
-    getPrograms = async (userid) => {
+    getPrograms = async(userid) => {
         console.log("ownerId: ", userid)
         if (Platform.OS == 'android') {
             this.backendUrl = url.getbackendURL_mobile()
@@ -104,25 +103,43 @@ class ProgramService {
             this.backendUrl = url.getbackendURL()
         }
         await fetch(this.backendUrl + '/api/program/get', {
-            method: 'GET',
-            headers: {
-                'ownerid': userid,
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            }
-        })
+                method: 'GET',
+                headers: {
+                    'ownerid': userid,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
             .then((response) => response.json())
             .then((json) => {
                 console.log(json.programs)
                 this.programs.data = json.programs
                 console.log("this programs: ", this.programs.data)
                 return json.programs
-                //this.data: json.programs
-                this.selectedUser.username = json.user.username
-                this.selectedUser.email = json.user.email
-                console.log("response: ", json)
-                console.log("username: ", this.selectedUser.username)
-                return json
+            })
+            .catch((error) => console.error(error))
+    }
+
+    getProgramsById = async(programId) => {
+        console.log("programId: ", programId)
+        if (Platform.OS == 'android') {
+            this.backendUrl = url.getbackendURL_mobile()
+        } else {
+            this.backendUrl = url.getbackendURL()
+        }
+        await fetch(this.backendUrl + '/api/program/get/' + programId, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then((response) => response.json())
+            .then((json) => {
+                console.log(json.program)
+                this.programs.data = json.program
+                console.log("this programs: ", this.programs.data)
+                return json.programs
             })
             .catch((error) => console.error(error))
     }

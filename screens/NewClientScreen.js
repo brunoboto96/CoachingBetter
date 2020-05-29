@@ -2,47 +2,42 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { Formik } from 'formik';
 import { Body, Card, CardItem, H2, Row } from 'native-base';
 import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Button, Input } from 'react-native-elements';
+import { StyleSheet, Text, View } from 'react-native';
+import { Input } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
+import program from '../components/program.service';
 import user from '../components/user.service';
+
 
 
 export default class HomeScreen extends React.Component {
 
-  onPressButton = ({ username, password }) => {
-    user.login(username, password)
+  onPressButton = ({ title, description, type, price }) => {
+    const { goBack } = this.props.navigation;
 
-
-    const { navigate } = this.props.navigation;
-    navigate("Home")
-
+    program.newProgram(title, description, type, price, this.state.userid)
+    goBack()
   }
 
   constructor(props) {
     super(props);
 
-    const { navigate } = this.props.navigation;
-
     this.state = {
-      selectedUser: {
-        username: 'user'
-      },
       data: [],
-      isLoading: true
-    }
+      isLoading: true,
+      userid: ''
+    };
+
     user.isLoggedIn().then((userPayload) => {
       console.log("Loged in: ", userPayload)
-      this.setState({ username: user.selectedUser.username })
-      /*if(!userPayload) {
-          //navigate authScreen
-          navigate('Auth')
-        }
-      */
-      if (userPayload) {
-        //navigate home
-        navigate("Home")
+      this.setState({ userid: user.selectedUser._id })
+      console.log(this.state.userid)
+      console.log(user.selectedUser._id)
+      if (!userPayload) {
+        //navigate authScreen
+        navigate('Auth')
       }
+
     })
   }
 
@@ -50,25 +45,28 @@ export default class HomeScreen extends React.Component {
 
   render() {
     const { data, isLoading } = this.state;
+    const { navigate } = this.props.navigation;
 
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainerMain}>
 
           <Card>
             <CardItem>
               <Body>
                 <Row>
-                  <FontAwesome5 name="key" size={30} color="orange" />
-                  <H2 style={{ marginLeft: 50 }}> Login </H2>
+                  <FontAwesome5 name="plus-circle" size={30} color="orange" />
+                  <H2 style={{ marginLeft: 50 }}> New Client </H2>
                 </Row>
-                <Formik initialValues={{ username: '', password: '' }}
+                <Text>Add a Customer manually</Text>
+
+                <Formik initialValues={{ title: '', description: '' }}
                   onSubmit={this.onPressButton}>
                   {({ handleChange, handleSubmit, values }) => (
                     <View style={styles.formContainer}>
-                      <Input placeholder='Username' onChangeText={handleChange('username')} value={values.username} />
-                      <Input placeholder='Password' onChangeText={handleChange('password')} value={values.password} />
-                      <Button title="Submit" onPress={handleSubmit} />
+                    <Input placeholder='Username' onChangeText={handleChange('username')} value={values.username} />
+                      <Input placeholder='Program' onChangeText={handleChange('program')} value={values.program} />
+                      
                     </View>
                   )}
                 </Formik>

@@ -4,20 +4,33 @@ TODO:
   this.props.navigation.goBack()
 ###########
 
+first_order:
+  PASSING ARGUMENTS TO SCREENS
+
+planner:
+  iterative item picker
+
+clean code:
+components
+navigators
+
 program:
 dynamic autocomplete from program_types
+https://aboutreact.com/example-of-react-native-autocomplete-input/
 
 Login():
 account_type check
 
 refresh:
-refresh after action
+#refresh after action ??
 
 planner:
 explanation
 exercise
 media?
 DINAMIC DUPLICATE COMPONENTS + GRAB PAREMETERS BY ORDER OF KEY
+come from programs -> edit button
+insert under programs
 
 booking:
 fake chat
@@ -27,10 +40,10 @@ auth:
 move inside home
 
 sessionplanner:
-design center buttons
+###design center buttons
 
 navigate:
-  just one variable not every function
+  just one variable not every function -> make it global
 
 ###
 :backend:
@@ -41,7 +54,7 @@ db:
 routes:
 
 controllers:
-
+debugging
 
 
 

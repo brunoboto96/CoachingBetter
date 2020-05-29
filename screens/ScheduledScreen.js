@@ -1,10 +1,10 @@
-import * as WebBrowser from 'expo-web-browser';
-import * as React from 'react';
-import { Platform, StyleSheet, Text, View, ActivityIndicator, FlatList, Alert, Modal, TouchableHighlight } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
+import * as WebBrowser from 'expo-web-browser';
+import { Body, Button, Card, CardItem, H2, Right, Row, H3 } from 'native-base';
+import * as React from 'react';
+import { ActivityIndicator, FlatList, Platform, StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
-import { Button, Row, Card, CardItem, Body, H2, Right } from 'native-base';
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -18,7 +18,7 @@ export default class HomeScreen extends React.Component {
 
   }
 
-  
+
 
   render() {
     const { data, isLoading } = this.state;
@@ -27,36 +27,18 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainerMain}>
-
           <Card>
             <CardItem>
               <Body>
                 <Row>
-                  <FontAwesome5 name="cubes" size={30} color="orange" />
-                  <H2 style={{ marginLeft: 50 }}> Planner</H2>
+                  <FontAwesome5 name="book-open" size={30} color="orange" />
+                  <H2 style={{ marginLeft: 50 }}> Scheduled Bookings</H2>
                 </Row>
-                <Button success block style={styles.contentContainer} onPress={() => navigate('NewProgram')} >
-                  <Text style={styles.center} >Create Program</Text>
-                </Button>
-              </Body>
-            </CardItem>
-          </Card>
-
-
-          <Card>
-            <CardItem>
-              <Body>
-                <Row>
-                  <FontAwesome5 name="archive" size={30} color="orange" />
-                  <H2 style={{ marginLeft: 50 }}> Your Programs</H2>
-                </Row>
-                <CardItem>
-                  <FontAwesome5 active name="google-plus" size={50} />
-                  <Text> Google Plus</Text>
-                  <Right>
-                    {/* FIX W add style sheet seperate file */}
-                    <FontAwesome5 name="edit" />
-                  </Right>
+                <CardItem bordered>
+                  <FontAwesome5 active name="user-ninja" />
+                  <Text>John Doe</Text>
+                  <H3>09/05/2020</H3>
+                  <Button success style={{ marginHorizontal: 10, padding: 5 }}><Text>Start Chat</Text></Button>
                 </CardItem>
 
 
@@ -81,6 +63,7 @@ export default class HomeScreen extends React.Component {
                 </View>
               </Body>
             </CardItem>
+            <Text> Retrieving your Bookings..</Text>
           </Card>
 
         </ScrollView>

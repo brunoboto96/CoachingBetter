@@ -29,16 +29,16 @@ class UserService {
             this.backendUrl = url.getbackendURL()
         }
         fetch(this.backendUrl + '/api/user/authenticate', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: username,
-                password: password
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password
+                })
             })
-        })
             .then((response) => response.json())
             .then((json) => {
                 this.storeToken(json['token'])
@@ -54,7 +54,7 @@ class UserService {
             })
     }
 
-    register = async (name, username, password, email, account_type) => {
+    register = async(name, username, password, email, account_type) => {
         console.log("register")
         if (Platform.OS == 'android') {
             this.backendUrl = url.getbackendURL_mobile()
@@ -62,25 +62,25 @@ class UserService {
             this.backendUrl = url.getbackendURL()
         }
         await fetch(this.backendUrl + '/api/user/register', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: name,
-                username: username,
-                email: email,
-                password: password,
-                account_type: account_type
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: name,
+                    username: username,
+                    email: email,
+                    password: password,
+                    account_type: account_type
+                })
             })
-        })
             .then((response) => {
                 response.clone().json()
-                console.log("res.json: ",response.json())
-                console.log("res: ",response)
+                console.log("res.json: ", response.json())
+                console.log("res: ", response)
                 this.errors.status = response.status
-            
+
             })
             .then((json) => {
                 console.log(json)
@@ -98,7 +98,7 @@ class UserService {
         }
     }
 
-    storeToken = async (value) => {
+    storeToken = async(value) => {
         try {
             await AsyncStorage.setItem('@storage_Key', value)
         } catch (e) {
@@ -106,7 +106,7 @@ class UserService {
         }
     }
 
-    getToken = async () => {
+    getToken = async() => {
         try {
             const value = await AsyncStorage.getItem('@storage_Key')
             if (value !== null) {
@@ -118,7 +118,7 @@ class UserService {
                 console.log(Date.now() / 1000)
                 if (userPayload.exp < Date.now() / 1000) {
                     console.log("Token expired")
-                    //navigate authScreen
+                        //navigate authScreen
                     return false
                 } else {
                     console.log("Token Valid")
@@ -134,11 +134,11 @@ class UserService {
         }
     }
 
-    isLoggedIn = async () => {
+    isLoggedIn = async() => {
         return this.getToken()
     }
 
-    getUser = async (token) => {
+    getUser = async(token) => {
         console.log("token sent: ", token)
         if (Platform.OS == 'android') {
             this.backendUrl = url.getbackendURL_mobile()
@@ -146,13 +146,13 @@ class UserService {
             this.backendUrl = url.getbackendURL()
         }
         await fetch(this.backendUrl + '/api/user/userProfile', {
-            method: 'GET',
-            headers: {
-                'Authorization': token,
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            }
-        })
+                method: 'GET',
+                headers: {
+                    'Authorization': token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
             .then((response) => response.json())
             .then((json) => {
                 this.selectedUser._id = json.user._id

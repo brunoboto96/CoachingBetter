@@ -1,15 +1,10 @@
-import * as WebBrowser from 'expo-web-browser';
-import * as React from 'react';
-import { Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
+import * as WebBrowser from 'expo-web-browser';
+import { Body, Button, Card, CardItem, H2, H3, Row } from 'native-base';
+import * as React from 'react';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
-import * as Font from 'expo-font';
-import { MonoText } from '../components/StyledText';
-import { Button, Container, Content, Row, Grid, Col, Card, CardItem, Body, H2, Right, Tab, Picker, Form, Item, Header, Input, H3 } from 'native-base';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
-import LinksScreen from './LinksScreen';
 
 export default class HomeScreen extends React.Component {
 
@@ -25,6 +20,12 @@ export default class HomeScreen extends React.Component {
                   <H2 style={{ marginLeft: 50 }}> Bookings</H2>
                 </Row>
                 <Text>You can check your bookings here</Text>
+            <CardItem>
+              <View style={{ flex: 1, alignItems: 'center' }}>
+                <Button transparent style={{ padding: 10, paddingTop: 50 }} onPress={() => navigate("Scheduled")}><FontAwesome5 name="clock" size={100} color="black" /></Button>
+                <Text style={{ marginTop: 50 }}> Scheduled Bookings</Text>
+              </View>
+            </CardItem>
               </Body>
             </CardItem>
           </Card>
@@ -49,7 +50,6 @@ export default class HomeScreen extends React.Component {
               </Body>
             </CardItem>
           </Card>
-
 
         </ScrollView>
       </View>

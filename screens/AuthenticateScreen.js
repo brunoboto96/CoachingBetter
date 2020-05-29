@@ -1,10 +1,9 @@
-import * as WebBrowser from 'expo-web-browser';
-import * as React from 'react';
-import { Platform, StyleSheet, Text, View, ActivityIndicator, FlatList, Alert, Modal, TouchableHighlight } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { Body, Button, Card, CardItem, H2, Row } from 'native-base';
+import * as React from 'react';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
-import { Button, Row, Card, CardItem, Body, H2, Right } from 'native-base';
 
 export default class HomeScreen extends React.Component {
   constructor(props) {

@@ -1,25 +1,22 @@
-import * as WebBrowser from 'expo-web-browser';
-import * as React from 'react';
-import { Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
+import * as WebBrowser from 'expo-web-browser';
+import { Body, Button, Card, CardItem, H2, Input, Item, Right, Row } from 'native-base';
+import * as React from 'react';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-
-import * as Font from 'expo-font';
-import { MonoText } from '../components/StyledText';
-import { Button, Container, Content, Row, Grid, Col, Card, CardItem, Body, H2, Right, Tab, Picker, Form, Item, Header, Input } from 'native-base';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
-import LinksScreen from './LinksScreen';
 import user from '../components/user.service';
+
 
 export default class HomeScreen extends React.Component {
 
   constructor(props) {
     super(props);
 
+    const { navigate } = this.props.navigation;
 
     this.state = {
       selectedUser: {
+        _id: '',
         username: 'user'
       },
       data: [],
@@ -27,21 +24,16 @@ export default class HomeScreen extends React.Component {
     }
     user.isLoggedIn().then((userPayload) => {
       console.log("Loged in: ", userPayload)
-      this.setState({ username: user.selectedUser.username })
+      this.setState({ _id: user.selectedUser._id })
       if (!userPayload) {
         //navigate authScreen
         navigate('Auth')
       }
-      /*
-      if (userPayload) {
-        //navigate home
-        navigate("Home")
-      }*/
     })
   }
 
   shareCode() {
-    
+    alert("Share code: " + this.state._id)
   }
 
   render() {
@@ -59,7 +51,7 @@ export default class HomeScreen extends React.Component {
                 <Button success block style={styles.contentContainer} >
                   <Text style={styles.center} >Add Client</Text>
                 </Button>
-                <Button info block style={styles.contentContainer} onPress={this.shareCode()}>
+                <Button info block style={styles.contentContainer} onPress={() => this.shareCode()}>
                   <Text style={styles.center} >Share Code</Text>
                 </Button>
               </Body>
@@ -74,32 +66,30 @@ export default class HomeScreen extends React.Component {
                   <FontAwesome5 name="users" size={30} color="orange" />
                   <H2 style={{ marginLeft: 50 }}> Your Clients</H2>
                 </Row>
-                <View searchBar rounded style={{ flex: 1, flexDirection: 'column', alignSelf: 'stretch' }}>
-                  <Item>
+                <CardItem searchBar rounded style={{ flex: 1, flexDirection: 'column', alignSelf: 'stretch' }}>
+                  <Item style={{ width: '100%' }}>
                     <FontAwesome5 name="users" />
                     <Input placeholder="Search" />
                     <Button bordered style={{ padding: 5 }}>
                       <FontAwesome5 name="search" />
                     </Button>
                   </Item>
-                </View>
-                <ScrollView>
-                  <CardItem>
-                    <FontAwesome5 active name="user-ninja" />
-                    <Text>John Doe</Text>
-                    <Right >
-                      <FontAwesome5 name="chevron-circle-right" />
-                    </Right>
-                  </CardItem>
-                  <CardItem>
-                    <FontAwesome5 active name="user-ninja" />
-                    <Text>John Doe</Text>
-                    <Right >
-                      <FontAwesome5 name="chevron-circle-right" />
-                    </Right>
-                  </CardItem>
-                  {/* Use FlatList maybe */}
-                </ScrollView>
+                </CardItem>
+                <CardItem>
+                  <FontAwesome5 active name="user-ninja" />
+                  <Text>John Doe</Text>
+                  <Right >
+                    <FontAwesome5 name="chevron-circle-right" />
+                  </Right>
+                </CardItem>
+                <CardItem>
+                  <FontAwesome5 active name="user-ninja" />
+                  <Text>John Steve</Text>
+                  <Right >
+                    <FontAwesome5 name="chevron-circle-right" />
+                  </Right>
+                </CardItem>
+                {/* Use FlatList maybe */}
               </Body>
             </CardItem>
           </Card>
@@ -110,25 +100,22 @@ export default class HomeScreen extends React.Component {
                   <FontAwesome5 name="users" size={30} color="orange" />
                   <H2 style={{ marginLeft: 50 }}> Old Clients</H2>
                 </Row>
-                <View searchBar rounded style={{ flex: 1, flexDirection: 'column', alignSelf: 'stretch' }}>
-                  <Item>
+                <CardItem searchBar rounded style={{ flex: 1, flexDirection: 'column', alignSelf: 'stretch' }}>
+                  <Item style={{ width: '100%' }}>
                     <FontAwesome5 name="users" />
                     <Input placeholder="Search" />
                     <Button bordered style={{ padding: 5 }}>
                       <FontAwesome5 name="search" />
                     </Button>
                   </Item>
-                </View>
-                <ScrollView>
-                  <CardItem>
-                    <FontAwesome5 active name="user-ninja" />
-                    <Text>John Doe</Text>
-                    <Right >
-                      <FontAwesome5 name="chevron-circle-right" />
-                    </Right>
-                  </CardItem>
-                  {/* Use FlatList maybe */}
-                </ScrollView>
+                </CardItem>
+                <CardItem>
+                  <FontAwesome5 active name="user-ninja" />
+                  <Text>John Doe</Text>
+                  <Right >
+                    <FontAwesome5 name="chevron-circle-right" />
+                  </Right>
+                </CardItem>
               </Body>
             </CardItem>
           </Card>

@@ -1,16 +1,11 @@
-import * as WebBrowser from 'expo-web-browser';
-import * as React from 'react';
-import { Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
+import * as WebBrowser from 'expo-web-browser';
+import { Button, H3, Card, CardItem, Body, Row, H2 } from 'native-base';
+import * as React from 'react';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-
-import * as Font from 'expo-font';
-import { MonoText } from '../components/StyledText';
-import { Button, Container, Content, Row, Grid, Col, Card, CardItem, Body, H2, Right, Tab, Picker, Form } from 'native-base';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
-import LinksScreen from './LinksScreen';
 import user from '../components/user.service';
+
 
 export default class HomeScreen extends React.Component {
 
@@ -54,10 +49,22 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainerMain}>
+          <Card>
+            <CardItem>
+              <Body>
+                <Row>
+                  <FontAwesome5 name="user" size={30} color="orange" />
+                  <H2 style={{ marginLeft: 50 }}> User</H2>
+                </Row>
+                <CardItem><H3> Username</H3></CardItem>
+                <CardItem><Text> {user.selectedUser.username}</Text></CardItem>
+                <CardItem><H3> Email</H3></CardItem>
+                  <CardItem><Text> {user.selectedUser.email}</Text></CardItem>
+                  <CardItem><Button style={{padding: 10}} danger onPress={() => this.Logout()}><Text>Logout</Text></Button></CardItem>
+              </Body>
+            </CardItem>
+          </Card>
 
-          <Text> {user.selectedUser.username}</Text>
-          <Text> {user.selectedUser.email}</Text>
-          <Button danger onPress={() => this.Logout()}><Text>Logout</Text></Button>
 
         </ScrollView>
       </View>

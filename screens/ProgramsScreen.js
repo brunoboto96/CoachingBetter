@@ -1,12 +1,11 @@
-import * as WebBrowser from 'expo-web-browser';
-import * as React from 'react';
-import { Platform, StyleSheet, Text, View, ActivityIndicator, FlatList, Alert, Modal, TouchableHighlight } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { Body, Button, Card, CardItem, H2, Right, Row } from 'native-base';
+import * as React from 'react';
+import { ActivityIndicator, FlatList, Platform, StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-
-import { Button, Row, Card, CardItem, Body, H2, Right } from 'native-base';
-import user from '../components/user.service';
 import program from '../components/program.service';
+import user from '../components/user.service';
+
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -23,6 +22,7 @@ export default class HomeScreen extends React.Component {
 
   componentDidMount() {
 
+    const { navigate } = this.props.navigation;
     user.isLoggedIn().then((userPayload) => {
       this.setState({ userid: user.selectedUser._id })
       if (!userPayload) {
@@ -37,29 +37,6 @@ export default class HomeScreen extends React.Component {
     }).finally(() => {
       this.setState({ isLoading: false });
     })
-
-    /*
-    if (Platform.OS == 'android') {
-      fetch('http://192.168.144.171:3000/api/program/get')
-        .then((response) => response.json())
-        .then((json) => {
-          this.setState({ data: json.programs });
-        })
-        .catch((error) => console.error(error))
-        .finally(() => {
-          this.setState({ isLoading: false });
-        });
-    } else {
-      fetch('http://127.0.0.1:3000/api/program/get')
-        .then((response) => response.json())
-        .then((json) => {
-          this.setState({ data: json.programs });
-        })
-        .catch((error) => console.error(error))
-        .finally(() => {
-          this.setState({ isLoading: false });
-        });
-    }*/
   }
 
   render() {
@@ -77,7 +54,7 @@ export default class HomeScreen extends React.Component {
                   <FontAwesome5 name="plus-circle" size={30} color="orange" />
                   <H2 style={{ marginLeft: 50 }}> New Program</H2>
                 </Row>
-                <Text>By creating a new Program it allows you to  ..</Text>
+                <Text>Create a new Program</Text>
                 <Button success block style={styles.contentContainer} onPress={() => navigate('NewProgram')} >
                   <Text style={styles.center} >Create Program</Text>
                 </Button>
@@ -98,15 +75,18 @@ export default class HomeScreen extends React.Component {
                   {isLoading ? <ActivityIndicator /> : (
                     <FlatList
                       data={data}
-                      keyExtractor={({ id }, index) => id}
+                      keyExtractor={({ _id }, index) => _id}
                       renderItem={({ item }) => (
                         <CardItem>
                           <FontAwesome5 active name="users" size={50} />
                           <Text> {item.title}</Text>
                           <Right>
-                            <Text>{item.description} </Text>
+                            <Text>{item.description}  </Text>
                           </Right>
-                          <FontAwesome5 name="edit" size={30} />
+                          <Button transparent
+                            onPress={() => navigate("Planner", { programLabelId: item._id })}>
+                            <FontAwesome5 name="edit" size={30} />
+                          </Button>
                         </CardItem>
                       )}
                     />
