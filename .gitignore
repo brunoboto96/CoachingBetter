@@ -1,15 +1,4 @@
-node_modules/**/*
-.expo/*
-npm-debug.*
-*.jks
-*.p8
-*.p12
-*.key
-*.mobileprovision
-*.orig.*
-web-build/
-web-report/
-
-# macOS
-.DS_Store
-yarn-error.log
+coachingbetter.zip
+coachingbetter3.zip
+coachingbetter3 - 1.zip
+misc
