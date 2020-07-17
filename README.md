@@ -44,6 +44,12 @@ We can determine the probability for each scenario:
 
     ·         Assuming the user inserted exercise A
 
+
+
+<table>
+  <tr>
+   <td>
+
 <table>
   <tr>
    <td>P(A|B) =
@@ -123,8 +129,8 @@ y2 = Average Program Rating of B
 </table>
 
 
- 
-
+   </td>
+   <td>
 
 <table>
   <tr>
@@ -203,6 +209,12 @@ y2 = Average Program Rating of C
    </td>
   </tr>
 </table>
+
+
+   </td>
+  </tr>
+</table>
+
 
 
  
